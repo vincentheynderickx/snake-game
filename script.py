@@ -41,11 +41,12 @@ class Snake:
             return(False)
         return(True)
     def move(self):
-        if not(self.is_movement_possible):
-            pygame.quit()
         new_head = [self.position[0][0] + self.direction[0],self.position[0][1] + self.direction[1]]
         self.position = self.position[:-1]
         self.position = [new_head] + self.position
+    
+    def fin_partie(self):
+        
 class Fruit:
     def __init__(self, snake):
         self.new_position()
@@ -62,10 +63,6 @@ fruit = Fruit(snake)
 
 while True:
     clock.tick(5)
-    snake.move()
-    init_board()
-    snake.display()
-    fruit.display()
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
@@ -80,4 +77,10 @@ while True:
                 snake.direction=[0,-1]
             if event.key == (pygame.K_DOWN):
                 snake.direction=[0,1]
+    if not(snake.is_movement_possible()):
+            pygame.quit()
+    snake.move()
+    init_board()
+    snake.display()
+    fruit.display()
     pygame.display.update()
