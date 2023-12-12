@@ -35,9 +35,9 @@ class Snake:
             return(False)
         if (self.position[0][0]==19) and (self.direction==[1,0]):
             return(False)
-        if (self.position[0][1]==0) and (self.direction==[0,1]):
+        if (self.position[0][1]==0) and (self.direction==[0,-1]):
             return(False)
-        if (self.position[0][1]==14) and (self.direction==[0,-1]):
+        if (self.position[0][1]==14) and (self.direction==[0,1]):
             return(False)
         return(True)
     def move(self, fruit):
