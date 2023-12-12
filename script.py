@@ -40,10 +40,15 @@ class Snake:
         if (self.position[0][1]==14) and (self.direction==[0,-1]):
             return(False)
         return(True)
-    def move(self):
-        new_head = [self.position[0][0] + self.direction[0],self.position[0][1] + self.direction[1]]
-        self.position = self.position[:-1]
-        self.position = [new_head] + self.position
+    def move(self, fruit):
+        if self.position[0] == fruit.position:
+            new_head = [self.position[0][0] + self.direction[0],self.position[0][1] + self.direction[1]]
+            self.position = [new_head] + self.position
+            fruit.new_position()
+        else:
+            new_head = [self.position[0][0] + self.direction[0],self.position[0][1] + self.direction[1]]
+            self.position = self.position[:-1]
+            self.position = [new_head] + self.position
 
 class Fruit:
     def __init__(self, snake):
@@ -77,7 +82,7 @@ while True:
                 snake.direction=[0,1]
     if not(snake.is_movement_possible()):
             pygame.quit()
-    snake.move()
+    snake.move(fruit)
     init_board()
     snake.display()
     fruit.display()
