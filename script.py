@@ -24,6 +24,7 @@ init_board()
 class Snake:
     def __init__(self):
         self.position = [[5,10],[6,10],[7,10]]
+        self.length = 3
         self.direction = [-1,0]
         self.display()
     def display(self):
@@ -40,14 +41,11 @@ class Snake:
             return(False)
         return(True)
     def move(self):
-        longueur_snake=len(self.position)
         if not(self.is_movement_possible):
             pygame.quit()
-        for k in range (1,longueur_snake):
-            self.position[longueur_snake-k]=self.position[longueur_snake-k-1]
-        self.position[0][0]+=self.direction[0]
-        self.position[0][1]+=self.direction[1]
-
+        new_head = [self.position[0][0] + self.direction[0],self.position[0][1] + self.direction[1]]
+        self.position = self.position[:-1]
+        self.position = [new_head] + self.position
 class Fruit:
     def __init__(self, snake):
         self.new_position()
@@ -63,7 +61,7 @@ snake = Snake()
 fruit = Fruit(snake)
 
 while True:
-    clock.tick(1)
+    clock.tick(5)
     snake.move()
     init_board()
     snake.display()
