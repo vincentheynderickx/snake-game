@@ -27,7 +27,6 @@ class Snake:
         self.direction = [-1,0]
         self.display()
     def display(self):
-        init_board()
         for square in self.position:
             pygame.draw.rect(screen, 'green', pygame.Rect(20*square[0], 20*square[1], 20, 20))
     def is_movement_possible(self):
@@ -51,20 +50,24 @@ class Snake:
 
 class Fruit:
     def __init__(self, snake):
-        squares_available = [[i,j] for i in range(20) for j in range(15) if [i,j] not in snake.position]
-        self.position = squares_available[rd.randint(0,len(squares_available))]
+        self.new_position()
         self.display()
     def display(self):
         pygame.draw.rect(screen, 'red', pygame.Rect(20*self.position[0], 20*self.position[1], 20, 20))
-    def is_eaten(self):
-        pass
+    def new_position(self):
+        squares_available = [[i,j] for i in range(20) for j in range(15) if [i,j] not in snake.position]
+        self.position = squares_available[rd.randint(0,len(squares_available))]
 
 
 snake = Snake()
+fruit = Fruit(snake)
+
 while True:
     clock.tick(1)
     snake.move()
+    init_board()
     snake.display()
+    fruit.display()
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
