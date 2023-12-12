@@ -57,6 +57,7 @@ class Fruit:
     def display(self):
         pygame.draw.rect(screen, 'red', pygame.Rect(20*self.position[0], 20*self.position[1], 20, 20))
     def is_eaten(self):
+        pass
 
 
 snake = Snake()
