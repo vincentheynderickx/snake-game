@@ -1,8 +1,7 @@
 import pygame
+import numpy.random as rd
 
 def init_board():
-    pygame.init()
-    pygame.display.set_caption("snake")
     screen.fill( (0, 0, 0) )
     for k in range (32):
         for i in range (24):
@@ -18,6 +17,8 @@ def init_board():
 
 clock = pygame.time.Clock()
 screen = pygame.display.set_mode((400, 300))
+pygame.init()
+pygame.display.set_caption("snake")
 init_board()
 
 class Snake:
@@ -26,6 +27,7 @@ class Snake:
         self.direction = [-1,0]
         self.display()
     def display(self):
+        init_board()
         for square in self.position:
             pygame.draw.rect(screen, 'green', pygame.Rect(20*square[0], 20*square[1], 20, 20))
     def is_movement_possible(self):
@@ -46,6 +48,17 @@ class Snake:
             self.position[longueur_snake-k]=self.position[longueur_snake-k-1]
         self.position[0][0]+=self.direction[0]
         self.position[0][1]+=self.direction[1]
+
+class Fruit:
+    def __init__(self, snake):
+        squares_available = [[i,j] for i in range(20) for j in range(15) if [i,j] not in snake.position]
+        self.position = squares_available[rd.randint(0,len(squares_available))]
+        self.display()
+    def display(self):
+        pygame.draw.rect(screen, 'red', pygame.Rect(20*self.position[0], 20*self.position[1], 20, 20))
+    def is_eaten(self):
+        pass
+
 
 snake = Snake()
 while True:
