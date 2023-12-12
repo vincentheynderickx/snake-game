@@ -13,6 +13,9 @@ while True:
     for event in pygame.event.get():
         pass
 
-    screen.fill( (0, 255, 0) )
-
+    screen.fill( (0, 0, 0) )
+    for k in range ():
+        color = (255, 255, 255) 
+        rect = pygame.Rect(left, top, width, height)
+        pygame.draw.rect(screen, color, rect)
     pygame.display.update()
