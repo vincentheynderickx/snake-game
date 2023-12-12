@@ -2,8 +2,6 @@ import pygame
 import numpy.random as rd
 
 def init_board():
-    pygame.init()
-    pygame.display.set_caption("snake")
     screen.fill( (0, 0, 0) )
     for k in range (32):
         for i in range (24):
@@ -19,6 +17,8 @@ def init_board():
 
 clock = pygame.time.Clock()
 screen = pygame.display.set_mode((400, 300))
+pygame.init()
+pygame.display.set_caption("snake")
 init_board()
 
 class Snake:
@@ -27,6 +27,7 @@ class Snake:
         self.direction = [-1,0]
         self.display()
     def display(self):
+        init_board()
         for square in self.position:
             pygame.draw.rect(screen, 'green', pygame.Rect(20*square[0], 20*square[1], 20, 20))
     def is_movement_possible(self):
@@ -55,6 +56,8 @@ class Fruit:
         self.display()
     def display(self):
         pygame.draw.rect(screen, 'red', pygame.Rect(20*self.position[0], 20*self.position[1], 20, 20))
+    def is_eaten(self):
+
 
 snake = Snake()
 fruit = Fruit(snake)
