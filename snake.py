@@ -14,11 +14,13 @@ while True:
         pass
 
     screen.fill( (0, 0, 0) )
-    for k in range (16):
-        for i in range (12):
+    for k in range (32):
+        for i in range (24):
             color = (255, 255, 255) 
             left=40*k
-            top=40*i
+            if (i%2==0):
+                left+=20
+            top=20*i
             width=20
             height=20
             rect = pygame.Rect(left, top, width, height)
