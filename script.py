@@ -71,12 +71,12 @@ while True:
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_q:
                 pygame.quit()
-            if event.key == (pygame.K.LEFT):
+            if event.key == (pygame.K_LEFT):
                 snake.direction=[-1,0]
-            if event.key == (pygame.K.RIGHT):
+            if event.key == (pygame.K_RIGHT):
                 snake.direction=[1,0]
-            if event.key == (pygame.K.UP):
-                snake.direction=[0,1]
-            if event.key == (pygame.K.DOWN):
+            if event.key == (pygame.K_UP):
                 snake.direction=[0,-1]
+            if event.key == (pygame.K_DOWN):
+                snake.direction=[0,1]
     pygame.display.update()
