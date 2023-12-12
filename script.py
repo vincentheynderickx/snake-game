@@ -1,4 +1,5 @@
 import pygame
+import numpy.random as rd
 
 def init_board():
     pygame.init()
@@ -47,7 +48,16 @@ class Snake:
         self.position[0][0]+=self.direction[0]
         self.position[0][1]+=self.direction[1]
 
+class Fruit:
+    def __init__(self, snake):
+        squares_available = [[i,j] for i in range(20) for j in range(15) if [i,j] not in snake.position]
+        self.position = squares_available[rd.randint(0,len(squares_available))]
+        self.display()
+    def display(self):
+        pygame.draw.rect(screen, 'red', pygame.Rect(20*self.position[0], 20*self.position[1], 20, 20))
+
 snake = Snake()
+fruit = Fruit(snake)
 
 while True:
     clock.tick(1)
