@@ -32,10 +32,35 @@ snake = Snake()
 
 while True:
     clock.tick(1)
+    if position
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_q:
                 pygame.quit()
+            if event.key==pygame.
     pygame.display.update()
+
+def is_movement_possible(direction, position):
+    if (position[0][0]==0) and (direction==[-1,0]):
+        return(False)
+    if (position[0][0]==19) and (direction==[1,0]):
+        return(False)
+    if (position[0][1]==0) and (direction==[0,1]):
+        return(False)
+    if (position[0][1]==14) and (direction==[0,-1]):
+        return(False)
+    return(True)
+
+def move(direction, position):
+    longueur_snake=len(position)
+    if not(is_movement_possible):
+        pygame.quit()
+    for k in range (1,longueur_snake):
+        position[longueur_snake-k]=position[longueur_snake-k-1]
+    position[0][0]+=direction[0]
+    position[0][1]+=direction[1]
+
+
+    
