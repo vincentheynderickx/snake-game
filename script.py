@@ -71,25 +71,26 @@ snake = Snake()
 fruit = Fruit(snake)
 
 while True:
-    clock.tick(5)
+    clock.tick(10)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_q:
                 pygame.quit()
-            if event.key == (pygame.K_LEFT):
+            if event.key == (pygame.K_LEFT) and snake.direction!=[1,0]:
                 snake.direction=[-1,0]
-            if event.key == (pygame.K_RIGHT):
+            if event.key == (pygame.K_RIGHT) and snake.direction!=[-1,0]:
                 snake.direction=[1,0]
-            if event.key == (pygame.K_UP):
+            if event.key == (pygame.K_UP) and snake.direction!=[0,1]:
                 snake.direction=[0,-1]
-            if event.key == (pygame.K_DOWN):
+            if event.key == (pygame.K_DOWN) and snake.direction!=[0,-1]:
                 snake.direction=[0,1]
     if snake.fin_partie():
             pygame.quit()
     snake.move(fruit)
     init_board()
-    snake.display()
     fruit.display()
+    snake.display()
+    
     pygame.display.update()
