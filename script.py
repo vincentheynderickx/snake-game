@@ -48,13 +48,22 @@ class Snake:
         self.position[0][1]+=self.direction[1]
 
 snake = Snake()
-
 while True:
     clock.tick(1)
+    snake.move()
+    snake.display()
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_q:
                 pygame.quit()
+            if event.key == (pygame.K.LEFT):
+                snake.direction=[-1,0]
+            if event.key == (pygame.K.RIGHT):
+                snake.direction=[1,0]
+            if event.key == (pygame.K.UP):
+                snake.direction=[0,1]
+            if event.key == (pygame.K.DOWN):
+                snake.direction=[0,-1]
     pygame.display.update()
