@@ -44,9 +44,7 @@ class Snake:
         new_head = [self.position[0][0] + self.direction[0],self.position[0][1] + self.direction[1]]
         self.position = self.position[:-1]
         self.position = [new_head] + self.position
-    
-    def fin_partie(self):
-        
+
 class Fruit:
     def __init__(self, snake):
         self.new_position()
