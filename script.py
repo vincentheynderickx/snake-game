@@ -47,6 +47,7 @@ class Snake:
             self.position[longueur_snake-k]=self.position[longueur_snake-k-1]
         self.position[0][0]+=self.direction[0]
         self.position[0][1]+=self.direction[1]
+        print(self.position)
 
 class Fruit:
     def __init__(self, snake):
