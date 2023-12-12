@@ -1,6 +1,6 @@
 import pygame
 
-def init_game():
+def init_board():
     pygame.init()
     pygame.display.set_caption("snake")
     screen.fill( (0, 0, 0) )
@@ -17,8 +17,18 @@ def init_game():
             pygame.draw.rect(screen, color, rect)
 
 clock = pygame.time.Clock()
-screen = pygame.display.set_mode( (400, 300) )
-init_game()
+screen = pygame.display.set_mode((400, 300))
+init_board()
+
+class Snake:
+    def __init__(self):
+        self.position = [[5,10],[6,10],[7,10]]
+        self.display()
+    def display(self):
+        for square in self.position:
+            pygame.draw.rect(screen, 'green', pygame.Rect(20*square[0], 20*square[1], 20, 20))
+
+snake = Snake()
 
 while True:
     clock.tick(1)
