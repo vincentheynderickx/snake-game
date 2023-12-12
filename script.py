@@ -43,12 +43,9 @@ class Snake:
     def move(self):
         if not(self.is_movement_possible):
             pygame.quit()
-        for k in range (1,longueur_snake):
-            self.position[longueur_snake-k]=self.position[longueur_snake-k-1]
-        self.position[0][0]+=self.direction[0]
-        self.position[0][1]+=self.direction[1]
-        print(self.position)
-
+        new_head = [self.position[0][0] + self.direction[0],self.position[0][1] + self.direction[1]]
+        self.position = self.position[:-1]
+        self.position = [new_head] + self.position
 class Fruit:
     def __init__(self, snake):
         self.new_position()
