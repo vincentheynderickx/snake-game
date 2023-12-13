@@ -26,6 +26,7 @@ class Snake:
         self.position = [[5,10],[6,10],[7,10]]
         self.length = 3
         self.direction = [-1,0]
+        self.longueur=len(self.position)
         self.display()
     def display(self):
         for square in self.position:
@@ -69,9 +70,12 @@ class Fruit:
 
 snake = Snake()
 fruit = Fruit(snake)
+score = 0
+font = pygame.font.Font(None, 36)
 
 while True:
-    clock.tick(10)
+    speed=4+2*(score//10)
+    clock.tick(speed)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
@@ -88,9 +92,14 @@ while True:
                 snake.direction=[0,1]
     if snake.fin_partie():
             pygame.quit()
+            break
     snake.move(fruit)
+    if snake.position[0] == fruit.position:
+        score += 10  
+        fruit.new_position() 
     init_board()
     fruit.display()
     snake.display()
-    
+    score_text = font.render(f"Score: {score}", True, (0, 0, 255))
+    screen.blit(score_text, (10, 10))
     pygame.display.update()
