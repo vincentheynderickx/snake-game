@@ -58,6 +58,13 @@ class Snake:
             return(True)
         if (self.position[0] in self.position[1:]):
             return(True)
+    def display_game_over(self):
+        screen.fill((0, 0, 0)) 
+        end_font = pygame.font.Font(None, 36)
+        end_text = end_font.render(f"Game Over! Your Score: {score}", True, (255, 255, 255))
+        end_text_rect = end_text.get_rect(center=(screen.get_width() // 2, screen.get_height() // 2))
+        screen.blit(end_text, end_text_rect)
+        pygame.display.flip()
         
 
 class Fruit:
@@ -95,17 +102,9 @@ while True:
             if event.key == (pygame.K_DOWN) and snake.direction!=[0,-1]:
                 snake.direction=[0,1]
     if snake.is_game_over():
-        game_over = True
-        screen.fill((0, 0, 0)) 
-        end_font = pygame.font.Font(None, 36)
-        end_text = end_font.render(f"Game Over! Your Score: {score}", True, (255, 255, 255))
-        end_text_rect = end_text.get_rect(center=(screen.get_width() // 2, screen.get_height() // 2))
-        screen.blit(end_text, end_text_rect)
-        pygame.display.flip()
-
-    if game_over:
+        snake.display_game_over()
         pygame.time.wait(3000)  
-        break 
+        break
     snake.move(fruit)
     if snake.position[0] == fruit.position:
         score += 10  
