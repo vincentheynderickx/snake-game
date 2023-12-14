@@ -27,7 +27,7 @@ class Snake:
         self.length = 3
         self.direction = [-1,0]
         self.longueur=len(self.position)
-    def display(self):
+    def display_snake(self):
         for square in self.position:
             pygame.draw.rect(screen, 'green', pygame.Rect(20*square[0], 20*square[1], 20, 20))
     def is_movement_possible(self):
@@ -49,11 +49,11 @@ class Snake:
             new_head = [self.position[0][0] + self.direction[0],self.position[0][1] + self.direction[1]]
             self.position = self.position[:-1]
             self.position = [new_head] + self.position
-    def afficher_score(self,score):
+    def display_score(self,score):
         score_text = font.render(f"Score: {score}", True, (0, 0, 255))
         screen.blit(score_text, (10, 10))
 
-    def fin_partie(self):
+    def is_game_over(self):
         if not(self.is_movement_possible()):
             return(True)
         if (self.position[0] in self.position[1:]):
@@ -63,8 +63,8 @@ class Snake:
 class Fruit:
     def __init__(self, snake):
         self.new_position()
-        self.display()
-    def display(self):
+        self.display_fruit()
+    def display_fruit(self):
         pygame.draw.rect(screen, 'red', pygame.Rect(20*self.position[0], 20*self.position[1], 20, 20))
     def new_position(self):
         squares_available = [[i,j] for i in range(20) for j in range(15) if [i,j] not in snake.position]
@@ -94,7 +94,7 @@ while True:
                 snake.direction=[0,-1]
             if event.key == (pygame.K_DOWN) and snake.direction!=[0,-1]:
                 snake.direction=[0,1]
-    if snake.fin_partie():
+    if snake.is_game_over():
         game_over = True
         screen.fill((0, 0, 0)) 
         end_font = pygame.font.Font(None, 36)
@@ -111,7 +111,7 @@ while True:
         score += 10  
         fruit.new_position() 
     init_board()
-    fruit.display()
-    snake.display()
-    snake.afficher_score(score)
+    fruit.display_fruit()
+    snake.display_snake()
+    snake.display_score(score)
     pygame.display.update()
