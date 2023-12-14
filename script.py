@@ -27,7 +27,6 @@ class Snake:
         self.length = 3
         self.direction = [-1,0]
         self.longueur=len(self.position)
-        self.display()
     def display(self):
         for square in self.position:
             pygame.draw.rect(screen, 'green', pygame.Rect(20*square[0], 20*square[1], 20, 20))
