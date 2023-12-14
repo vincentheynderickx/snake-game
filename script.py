@@ -3,8 +3,8 @@ import numpy.random as rd
 
 def init_board():
     screen.fill( (0, 0, 0) )
-    for k in range (32):
-        for i in range (24):
+    for k in range (20):
+        for i in range (15):
             color = (255, 255, 255) 
             left=40*k
             if (i%2==0):
