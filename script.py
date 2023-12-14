@@ -3,8 +3,8 @@ import numpy.random as rd
 
 def init_board():
     screen.fill( (0, 0, 0) )
-    for k in range (32):
-        for i in range (24):
+    for k in range (20):
+        for i in range (15):
             color = (255, 255, 255) 
             left=40*k
             if (i%2==0):
@@ -27,7 +27,6 @@ class Snake:
         self.length = 3
         self.direction = [-1,0]
         self.longueur=len(self.position)
-        self.display()
     def display(self):
         for square in self.position:
             pygame.draw.rect(screen, 'green', pygame.Rect(20*square[0], 20*square[1], 20, 20))
@@ -50,6 +49,10 @@ class Snake:
             new_head = [self.position[0][0] + self.direction[0],self.position[0][1] + self.direction[1]]
             self.position = self.position[:-1]
             self.position = [new_head] + self.position
+    def afficher_score(self,score):
+        score_text = font.render(f"Score: {score}", True, (0, 0, 255))
+        screen.blit(score_text, (10, 10))
+
     def fin_partie(self):
         if not(self.is_movement_possible()):
             return(True)
@@ -101,7 +104,7 @@ while True:
         pygame.display.flip()
 
     if game_over:
-        pygame.time.wait(5000)  
+        pygame.time.wait(3000)  
         break 
     snake.move(fruit)
     if snake.position[0] == fruit.position:
@@ -110,6 +113,5 @@ while True:
     init_board()
     fruit.display()
     snake.display()
-    score_text = font.render(f"Score: {score}", True, (0, 0, 255))
-    screen.blit(score_text, (10, 10))
+    snake.afficher_score(score)
     pygame.display.update()
