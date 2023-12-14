@@ -30,6 +30,7 @@ init_board()
 class Snake:
     def __init__(self):
         self.position = [[5, 10], [6, 10], [7, 10]]
+        self.position = [[5, 10], [6, 10], [7, 10]]
         self.length = 3
         self.direction = [-1, 0]
         self.newdir = self.direction
@@ -38,6 +39,10 @@ class Snake:
 
     def display_snake(self):
         for square in self.position:
+            pygame.draw.rect(
+                screen, "green", pygame.Rect(20 * square[0], 20 * square[1], 20, 20)
+            )
+
             pygame.draw.rect(
                 screen, "green", pygame.Rect(20 * square[0], 20 * square[1], 20, 20)
             )
@@ -70,6 +75,10 @@ class Snake:
                 self.position[0][0] + self.direction[0],
                 self.position[0][1] + self.direction[1],
             ]
+            new_head = [
+                self.position[0][0] + self.direction[0],
+                self.position[0][1] + self.direction[1],
+            ]
             self.position = self.position[:-1]
             self.position = [new_head] + self.position
             self.lastpos = self.position[-1]
@@ -84,7 +93,13 @@ class Snake:
         if self.position[0] in self.position[1:]:
             return True
 
+        if not (self.is_movement_possible()):
+            return True
+        if self.position[0] in self.position[1:]:
+            return True
+
     def display_game_over(self):
+        screen.fill((0, 0, 0))
         screen.fill((0, 0, 0))
         end_font = pygame.font.Font(None, 36)
         end_text = end_font.render(
@@ -109,7 +124,17 @@ class Fruit:
             pygame.Rect(20 * self.position[0], 20 * self.position[1], 20, 20),
         )
 
+        pygame.draw.rect(
+            screen,
+            "red",
+            pygame.Rect(20 * self.position[0], 20 * self.position[1], 20, 20),
+        )
+
     def new_position(self):
+        squares_available = [
+            [i, j] for i in range(20) for j in range(15) if [i, j] not in snake.position
+        ]
+        self.position = squares_available[rd.randint(0, len(squares_available))]
         squares_available = [
             [i, j] for i in range(20) for j in range(15) if [i, j] not in snake.position
         ]
@@ -119,6 +144,7 @@ class Fruit:
 snake = Snake()
 fruit = Fruit(snake)
 font = pygame.font.Font(None, 36)
+game_over = False
 game_over = False
 
 while True:
@@ -140,6 +166,7 @@ while True:
                 snake.newdir = [0, 1]
     if snake.is_game_over():
         snake.display_game_over()
+        pygame.time.wait(3000)
         pygame.time.wait(3000)
         break
     snake.move(fruit)
